@@ -22,7 +22,7 @@ begin
               @@tunnel.connect
               @@tunnel.wait_until_ready
             end
-            if Sauce::Utilities::RailsServer.is_rails_app?
+            if Sauce::Utilities::RailsServer.is_rails_app? && !Sauce::Utilities::RailsServer.capy_already_running_server?
               @@server = Sauce::Utilities::RailsServer.new
               @@server.start
             end
@@ -103,7 +103,7 @@ begin
             @@tunnel.wait_until_ready
           end
 
-          if Sauce::Utilities::RailsServer.is_rails_app?
+          if Sauce::Utilities::RailsServer.is_rails_app? && !Sauce::Utilities::RailsServer.capy_already_running_server?
             @@server = Sauce::Utilities::RailsServer.new
             @@server.start
           end
@@ -124,7 +124,7 @@ begin
           end
 
           if files_to_run.any? {|file| file =~ /spec\/selenium\//} &&
-            Sauce::Utilities::RailsServer.is_rails_app?
+            Sauce::Utilities::RailsServer.is_rails_app? && !Sauce::Utilities::RailsServer.capy_already_running_server?
             @@server = Sauce::Utilities::RailsServer.new
             @@server.start
           end
@@ -166,7 +166,7 @@ module Sauce
 
         unless defined?(@@server)
           unless ENV['TEST_ENV_NUMBER'].to_i > 1
-            if Sauce::Utilities::RailsServer.is_rails_app?
+            if Sauce::Utilities::RailsServer.is_rails_app? && !Sauce::Utilities::RailsServer.capy_already_running_server?
               @@server = Sauce::Utilities::RailsServer.new
               @@server.start
               at_exit do

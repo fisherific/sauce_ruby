@@ -37,6 +37,12 @@ module Sauce
         File.exists?('script/server') || File.exists?('script/rails')
       end
 
+      def self.capy_already_running_server?
+        if ::Capybara
+          ::Capybara.run_server
+        end
+      end
+
       def start
         STDERR.puts "Starting Rails server on port 3001..."
         if File.exists?('script/server')
