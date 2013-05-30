@@ -37,10 +37,21 @@ module Sauce
         File.exists?('script/server') || File.exists?('script/rails')
       end
 
+      def self.is_running_in_test?
+        if self.is_rails_app?
+          Rails.env == 'test'
+        end
+      end
+
       def self.capy_already_running_server?
         if ::Capybara
           ::Capybara.run_server
         end
+      end
+
+      def self.should_run_server?
+        false
+        #self.is_rails_app? && self.is_running_in_test? && !self.capy_already_running_server?
       end
 
       def start
