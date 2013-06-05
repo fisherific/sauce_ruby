@@ -28,6 +28,7 @@ module Sauce
 
     def initialize(opts={})
       @config = Sauce::Config.new(opts)
+      binding.pry
       http_client = ::Selenium::WebDriver::Remote::Http::Persistent.new
       http_client.timeout = 300 # Browser launch can take a while
       @driver = ::Selenium::WebDriver.for(:remote,
